@@ -1,0 +1,40 @@
+import type { Context } from 'koa';
+import Joi from 'joi';
+import { Recipe } from '../../entities/Recipe';
+import { validateBody } from '../../libs/utils';
+import { dataSource } from '../../server';
+
+async function initRecipeAPI(ctx: Context) {
+  type RequestType = {
+    title: string;
+    serving: number;
+    thumbnail: string;
+  };
+
+  const schema = Joi.object().keys({
+    title: Joi.string().required(),
+    serving: Joi.string().required(),
+    thumbnail: Joi.string().required(),
+  });
+
+  if (!validateBody(ctx, schema)) return;
+
+  const { title, serving, thumbnail }: RequestType = ctx.request.body;
+
+  try {
+    const recipeRepo = await dataSource.getRepository(Recipe);
+    const recipe = new Recipe();
+
+    recipe.title = title;
+    recipe.serving = serving;
+    recipe.thumbnail = thumbnail;
+
+    await recipeRepo.save(recipe);
+
+    ctx.body = recipe;
+  } catch (err: any) {
+    ctx.throw(500, err);
+  }
+}
+
+export default initRecipeAPI;
