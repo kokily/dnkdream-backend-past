@@ -16,7 +16,6 @@ const s3upload_1 = __importDefault(require("../../libs/s3upload"));
 const image = (ctx, next) => __awaiter(void 0, void 0, void 0, function* () {
     if (ctx.request.files) {
         const file = ctx.request.files.file;
-        // @ts-ignore
         const { key, url } = yield (0, s3upload_1.default)(file);
         ctx.body = { key, url };
     }
