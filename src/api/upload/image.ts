@@ -4,8 +4,7 @@ import uploadImage, { FileType } from '../../libs/s3upload';
 const image = async (ctx: Context, next: Next) => {
   if (ctx.request.files) {
     const file = ctx.request.files.file;
-    // @ts-ignore
-    const { key, url } = await uploadImage(file as FileType);
+    const { key, url } = await uploadImage(file as any);
 
     ctx.body = { key, url };
   } else {
