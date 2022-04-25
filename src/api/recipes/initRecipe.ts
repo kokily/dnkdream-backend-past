@@ -3,6 +3,7 @@ import Joi from 'joi';
 import { Recipe } from '../../entities/Recipe';
 import { validateBody } from '../../libs/utils';
 import { dataSource } from '../../server';
+import loadUser from '../../libs/loadUser';
 
 async function initRecipeAPI(ctx: Context) {
   type RequestType = {
@@ -22,12 +23,14 @@ async function initRecipeAPI(ctx: Context) {
   const { title, serving, thumbnail }: RequestType = ctx.request.body;
 
   try {
+    const user_id = await loadUser(ctx);
     const recipeRepo = await dataSource.getRepository(Recipe);
     const recipe = new Recipe();
 
     recipe.title = title;
     recipe.serving = serving;
     recipe.thumbnail = thumbnail;
+    recipe.fk_user_id = user_id;
 
     await recipeRepo.save(recipe);
 

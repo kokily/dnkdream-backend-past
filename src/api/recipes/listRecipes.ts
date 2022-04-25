@@ -16,7 +16,7 @@ async function listRecipesAPI(ctx: Context) {
     const recipeRepo = await dataSource.getRepository(Recipe);
     const query = recipeRepo
       .createQueryBuilder('recipes')
-      .where('recipes.user_id = :user_id', { user_id })
+      .where('recipes.fk_user_id = :user_id', { user_id })
       .limit(20)
       .orderBy('recipes.created_at', 'DESC');
 
