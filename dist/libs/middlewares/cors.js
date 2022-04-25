@@ -1,14 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = require("../utils");
-var cors = function (ctx, next) {
-    var allowedHosts = [/^https:\/\/dnkdream.com$/, /^https:\/\/image.dnkdream.com$/];
+const utils_1 = require("../utils");
+const cors = (ctx, next) => {
+    const allowedHosts = [/^https:\/\/dnkdream.com$/, /^https:\/\/image.dnkdream.com$/];
     if (!utils_1.isProd) {
         allowedHosts.push(/^http:\/\/localhost/);
     }
-    var origin = ctx.headers.origin;
+    const { origin } = ctx.headers;
     if (origin) {
-        var valid = allowedHosts.some(function (regex) { return regex.test(origin); });
+        const valid = allowedHosts.some((regex) => regex.test(origin));
         if (!valid)
             return next();
         ctx.set('Access-Control-Allow-Origin', origin);
