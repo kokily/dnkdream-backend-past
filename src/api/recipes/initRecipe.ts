@@ -14,7 +14,7 @@ async function initRecipeAPI(ctx: Context) {
 
   const schema = Joi.object().keys({
     title: Joi.string().required(),
-    serving: Joi.string().required(),
+    serving: Joi.number().required(),
     thumbnail: Joi.string().required(),
   });
 

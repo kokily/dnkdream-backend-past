@@ -21,7 +21,7 @@ function initRecipeAPI(ctx) {
     return __awaiter(this, void 0, void 0, function* () {
         const schema = joi_1.default.object().keys({
             title: joi_1.default.string().required(),
-            serving: joi_1.default.string().required(),
+            serving: joi_1.default.number().required(),
             thumbnail: joi_1.default.string().required(),
         });
         if (!(0, utils_1.validateBody)(ctx, schema))
