@@ -13,6 +13,7 @@ function imageUpload(ctx) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             console.log(ctx.request);
+            console.log(ctx.response);
             // const { key, url } = await uploadImage(file as any);
             //ctx.body = { key, url };
         }
