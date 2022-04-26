@@ -4,6 +4,6 @@ import imageUpload from './imageUpload';
 
 const upload = new Router();
 
-upload.post('/', authorized, imageUpload);
+upload.post('/', imageUpload);
 
 export default upload;
