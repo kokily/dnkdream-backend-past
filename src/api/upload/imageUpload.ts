@@ -3,10 +3,13 @@ import uploadImage from '../../libs/s3upload';
 
 async function imageUpload(ctx: Context) {
   try {
-    // @ts-ignore
-    const file = ctx.request.files.file;
-    const { key, url } = await uploadImage(file as any);
-    ctx.body = { key, url };
+    if (ctx.request.files) {
+      const file = ctx.request.files.file;
+      const { key, url } = await uploadImage(file as any);
+      ctx.body = { key, url };
+    } else {
+      console.log('업로드 된 파일이 없습니다.');
+    }
   } catch (err: any) {
     ctx.throw(500, err);
   }

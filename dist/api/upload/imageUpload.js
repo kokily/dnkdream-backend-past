@@ -16,10 +16,14 @@ const s3upload_1 = __importDefault(require("../../libs/s3upload"));
 function imageUpload(ctx) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            // @ts-ignore
-            const file = ctx.request.files.file;
-            const { key, url } = yield (0, s3upload_1.default)(file);
-            ctx.body = { key, url };
+            if (ctx.request.files) {
+                const file = ctx.request.files.file;
+                const { key, url } = yield (0, s3upload_1.default)(file);
+                ctx.body = { key, url };
+            }
+            else {
+                console.log('업로드 된 파일이 없습니다.');
+            }
         }
         catch (err) {
             ctx.throw(500, err);
