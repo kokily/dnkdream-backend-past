@@ -18,7 +18,7 @@ function imageUpload(ctx) {
         try {
             if (ctx.request.files) {
                 const file = ctx.request.files.file;
-                const { key, url } = yield (0, s3upload_1.default)(file);
+                const { key, url } = yield (0, s3upload_1.default)(JSON.parse(JSON.stringify(file)));
                 ctx.body = { key, url };
             }
             else {

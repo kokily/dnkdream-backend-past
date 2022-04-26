@@ -4,9 +4,12 @@ import fs from 'fs';
 import moment from 'moment';
 
 export type FileType = {
-  name: string;
-  uri: string;
-  type: string;
+  size: number;
+  filepath: string;
+  newFilename: string;
+  mimetype: string;
+  mtime: string;
+  originalFilename: string;
 };
 
 export type S3ReturnType = {
@@ -37,9 +40,9 @@ const uploadImage = async (file: FileType): Promise<S3ReturnType> => {
   return new Promise((resolve, reject) => {
     const Params: ParamsType = {
       Bucket: 'image.dnkdream.com',
-      Body: fs.createReadStream(file.uri),
-      Key: `${moment().format('YYMMDD_HHmmss')}_${file.name.trim()}`,
-      ContentType: file.type,
+      Body: fs.createReadStream(file.filepath),
+      Key: `${moment().format('YYMMDD_HHmmss')}_${file.newFilename.trim()}`,
+      ContentType: file.mimetype,
     };
 
     Params.Body.on('error', (err) => {
