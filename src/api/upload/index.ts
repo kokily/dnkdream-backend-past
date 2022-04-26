@@ -1,9 +1,9 @@
 import Router from 'koa-router';
 import authorized from '../../libs/middlewares/authorized';
-import image from './image';
+import imageUpload from './imageUpload';
 
 const upload = new Router();
 
-upload.post('/', authorized, image);
+upload.post('/', authorized, imageUpload);
 
 export default upload;
