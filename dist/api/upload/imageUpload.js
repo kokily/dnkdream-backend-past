@@ -8,14 +8,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+const s3upload_1 = __importDefault(require("../../libs/s3upload"));
 function imageUpload(ctx) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            console.log(ctx.request);
-            console.log(ctx.response);
-            // const { key, url } = await uploadImage(file as any);
-            //ctx.body = { key, url };
+            // @ts-ignore
+            const file = ctx.request.files.file;
+            const { key, url } = yield (0, s3upload_1.default)(file);
+            ctx.body = { key, url };
         }
         catch (err) {
             ctx.throw(500, err);
