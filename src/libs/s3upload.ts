@@ -5,7 +5,7 @@ import moment from 'moment';
 
 export type FileType = {
   name: string;
-  path: string;
+  uri: string;
   type: string;
 };
 
@@ -37,7 +37,7 @@ const uploadImage = async (file: FileType): Promise<S3ReturnType> => {
   return new Promise((resolve, reject) => {
     const Params: ParamsType = {
       Bucket: 'image.dnkdream.com',
-      Body: fs.createReadStream(file.path),
+      Body: fs.createReadStream(file.uri),
       Key: `${moment().format('YYMMDD_HHmmss')}_${file.name.trim()}`,
       ContentType: file.type,
     };

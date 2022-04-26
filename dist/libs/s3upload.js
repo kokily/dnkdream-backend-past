@@ -29,7 +29,7 @@ const uploadImage = (file) => __awaiter(void 0, void 0, void 0, function* () {
     return new Promise((resolve, reject) => {
         const Params = {
             Bucket: 'image.dnkdream.com',
-            Body: fs_1.default.createReadStream(file.path),
+            Body: fs_1.default.createReadStream(file.uri),
             Key: `${(0, moment_1.default)().format('YYMMDD_HHmmss')}_${file.name.trim()}`,
             ContentType: file.type,
         };
