@@ -8,23 +8,21 @@ async function addCostRecipeAPI(ctx: Context) {
   const { id }: { id: string } = ctx.params;
 
   type RequestType = {
-    all_cost: number;
     all_price: number;
   };
 
   const schema = Joi.object().keys({
-    all_cost: Joi.number().required(),
     all_price: Joi.number().required(),
   });
 
   if (!validateBody(ctx, schema)) return;
 
-  const { all_cost, all_price }: RequestType = ctx.request.body;
+  const { all_price }: RequestType = ctx.request.body;
 
   try {
     const recipeRepo = await dataSource.getRepository(Recipe);
 
-    await recipeRepo.update({ id }, { all_cost, all_price });
+    await recipeRepo.update({ id }, { all_price });
 
     ctx.status = 200;
   } catch (err: any) {

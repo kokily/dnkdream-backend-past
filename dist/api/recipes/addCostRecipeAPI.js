@@ -20,15 +20,14 @@ function addCostRecipeAPI(ctx) {
     return __awaiter(this, void 0, void 0, function* () {
         const { id } = ctx.params;
         const schema = joi_1.default.object().keys({
-            all_cost: joi_1.default.number().required(),
             all_price: joi_1.default.number().required(),
         });
         if (!(0, utils_1.validateBody)(ctx, schema))
             return;
-        const { all_cost, all_price } = ctx.request.body;
+        const { all_price } = ctx.request.body;
         try {
             const recipeRepo = yield server_1.dataSource.getRepository(Recipe_1.Recipe);
-            yield recipeRepo.update({ id }, { all_cost, all_price });
+            yield recipeRepo.update({ id }, { all_price });
             ctx.status = 200;
         }
         catch (err) {
