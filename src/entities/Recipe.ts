@@ -32,6 +32,9 @@ export class Recipe extends BaseEntity {
   @Column({ type: 'int', nullable: true })
   all_cost!: number;
 
+  @Column({ type: 'int', nullable: true })
+  all_price!: number;
+
   @Column('timestamptz')
   @CreateDateColumn()
   created_at!: Date;
