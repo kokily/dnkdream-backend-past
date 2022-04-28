@@ -16,7 +16,11 @@ function readRecipeAPI(ctx) {
         const { id } = ctx.params;
         try {
             const recipeRepo = yield server_1.dataSource.getRepository(Recipe_1.Recipe);
-            const recipe = yield recipeRepo.findOneBy({ id });
+            const recipe = yield recipeRepo
+                .createQueryBuilder('recipe')
+                .leftJoinAndSelect('recipe.materials', 'id')
+                .where('recipe.id = :id', { id })
+                .getOne();
             if (!recipe) {
                 ctx.status = 404;
                 ctx.body = '해당 레시피가 존재하지 않습니다.';

@@ -7,7 +7,11 @@ async function readRecipeAPI(ctx: Context) {
 
   try {
     const recipeRepo = await dataSource.getRepository(Recipe);
-    const recipe = await recipeRepo.findOneBy({ id });
+    const recipe = await recipeRepo
+      .createQueryBuilder('recipe')
+      .leftJoinAndSelect('recipe.materials', 'id')
+      .where('recipe.id = :id', { id })
+      .getOne();
 
     if (!recipe) {
       ctx.status = 404;
