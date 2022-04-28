@@ -7,7 +7,9 @@ import {
   UpdateDateColumn,
   ManyToOne,
   JoinColumn,
+  OneToMany,
 } from 'typeorm';
+import { Material } from './Material';
 import { User } from './User';
 
 @Entity()
@@ -45,4 +47,7 @@ export class Recipe extends BaseEntity {
   @ManyToOne((type) => User, (user) => user.id, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'fk_user_id' })
   user!: User;
+
+  @OneToMany((type) => Material, (material) => material.recipe)
+  materials!: Material[];
 }

@@ -9,7 +9,7 @@ async function readRecipeAPI(ctx: Context) {
     const recipeRepo = await dataSource.getRepository(Recipe);
     const recipe = await recipeRepo
       .createQueryBuilder('recipe')
-      .leftJoinAndSelect('recipe.materials', 'id')
+      .leftJoinAndSelect('recipe.materials', 'material')
       .where('recipe.id = :id', { id })
       .getOne();
 

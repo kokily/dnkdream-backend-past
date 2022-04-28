@@ -18,7 +18,7 @@ function readRecipeAPI(ctx) {
             const recipeRepo = yield server_1.dataSource.getRepository(Recipe_1.Recipe);
             const recipe = yield recipeRepo
                 .createQueryBuilder('recipe')
-                .leftJoinAndSelect('recipe.materials', 'id')
+                .leftJoinAndSelect('recipe.materials', 'material')
                 .where('recipe.id = :id', { id })
                 .getOne();
             if (!recipe) {
