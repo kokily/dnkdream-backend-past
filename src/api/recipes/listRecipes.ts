@@ -17,6 +17,7 @@ async function listRecipesAPI(ctx: Context) {
     const query = recipeRepo
       .createQueryBuilder('recipes')
       .where('recipes.fk_user_id = :user_id', { user_id })
+      .leftJoinAndSelect('recipe.materials', 'material')
       .limit(20)
       .orderBy('recipes.created_at', 'DESC');
 
