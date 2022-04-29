@@ -27,7 +27,7 @@ export class Material extends BaseEntity {
   @Column('text')
   unit!: string;
 
-  @Column('double')
+  @Column({ type: 'decimal' })
   usage!: number;
 
   @Column()

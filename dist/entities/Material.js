@@ -35,7 +35,7 @@ __decorate([
     __metadata("design:type", String)
 ], Material.prototype, "unit", void 0);
 __decorate([
-    (0, typeorm_1.Column)('double'),
+    (0, typeorm_1.Column)({ type: 'decimal' }),
     __metadata("design:type", Number)
 ], Material.prototype, "usage", void 0);
 __decorate([
