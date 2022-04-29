@@ -24,7 +24,7 @@ function listRecipesAPI(ctx) {
             const query = recipeRepo
                 .createQueryBuilder('recipes')
                 .where('recipes.fk_user_id = :user_id', { user_id })
-                .leftJoinAndSelect('recipe.materials', 'material')
+                .leftJoinAndSelect('recipes.materials', 'material')
                 .limit(20)
                 .orderBy('recipes.created_at', 'DESC');
             if (title) {
